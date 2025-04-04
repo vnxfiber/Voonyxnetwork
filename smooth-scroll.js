@@ -2,6 +2,11 @@
  * Smooth Scroll - Script para navegação suave entre seções
  */
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Inicializando smooth-scroll.js');
+    
+    // Habilitar rolagem suave nativamente
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
     // Seleciona todos os links que começam com # (links internos)
     const links = document.querySelectorAll('a[href^="#"]');
     
@@ -11,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Previne o comportamento padrão
             e.preventDefault();
             
+            console.log('Link interno clicado:', this.getAttribute('href'));
+            
             // Obtém o alvo do link
             const targetId = this.getAttribute('href');
             
@@ -19,25 +26,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    // Verifica se o navegador suporta scrollBehavior
+                    console.log('Elemento alvo encontrado:', targetId);
+                    
+                    // Obter a altura do header para compensar
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    console.log('Altura do header:', headerHeight);
+                    
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    console.log('Posição alvo:', targetPosition);
+                    
+                    // Verificar se o navegador suporta scrollBehavior
                     if ('scrollBehavior' in document.documentElement.style) {
                         // Método nativo de smooth scroll
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
                         });
+                        console.log('Usando scrollBehavior nativo');
                     } else {
                         // Fallback para navegadores que não suportam scrollBehavior
-                        smoothScrollTo(targetElement);
+                        smoothScrollTo(targetPosition);
+                        console.log('Usando fallback para smooth scroll');
                     }
+                } else {
+                    console.warn('Elemento alvo não encontrado:', targetId);
                 }
             }
         });
     });
     
     // Função de fallback para smooth scroll
-    function smoothScrollTo(element) {
-        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    function smoothScrollTo(targetPosition) {
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         const duration = 500; // ms
@@ -63,4 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         window.requestAnimationFrame(animation);
     }
+    
+    console.log('smooth-scroll.js inicializado com sucesso');
 }); 

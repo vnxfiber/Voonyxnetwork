@@ -37,7 +37,7 @@
     <section class="faq-page">
         <div class="faq-content">
             <h1>Perguntas Frequentes</h1>
-            <p>Encontre respostas para as dúvidas mais comuns sobre nossos serviços</p>
+            <p class="faq-description">Encontre respostas para as dúvidas mais comuns sobre nossos serviços</p>
 
             <div class="faq-categories">
                 <div class="faq-category">
@@ -172,6 +172,29 @@
 
     <script src="script.js"></script>
     <script src="mobile-menu.js"></script>
+    <script src="cookie-consent.js"></script>
+    
+    <!-- Adicionar script para o FAQ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Selecionar todas as perguntas
+            const questions = document.querySelectorAll('.faq-question');
+            
+            // Adicionar evento de clique para cada pergunta
+            questions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Toggle da classe active na pergunta
+                    this.classList.toggle('active');
+                    
+                    // Selecionar a resposta associada
+                    const answer = this.nextElementSibling;
+                    
+                    // Toggle da classe active na resposta
+                    answer.classList.toggle('active');
+                });
+            });
+        });
+    </script>
     
     <!-- Pop-up de Consentimento de Cookies -->
     <div id="cookie-consent-overlay" class="cookie-consent-overlay">
@@ -193,7 +216,5 @@
             </div>
         </div>
     </div>
-    
-    <script src="cookie-consent.js"></script>
 </body>
 </html> 

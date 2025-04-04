@@ -1,94 +1,48 @@
-// Cookie Consent Script
+// Script para gerenciar o consentimento de cookies
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se o usuário já aceitou os cookies
-    function checkCookieConsent() {
-        try {
-            // Tentar usar localStorage
-            return localStorage.getItem('cookiesAccepted') === 'true';
-        } catch (e) {
-            // Fallback para cookies
-            return document.cookie.indexOf('cookiesAccepted=true') !== -1;
-        }
+    console.log('Inicializando script de consentimento de cookies');
+    
+    // Verificar se o usuário já deu consentimento
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    
+    // Selecionar elementos relacionados aos cookies
+    const cookieOverlay = document.getElementById('cookie-consent-overlay');
+    const acceptButton = document.getElementById('cookie-accept-all');
+    
+    if (!cookieOverlay || !acceptButton) {
+        console.error('Elementos do consentimento de cookies não encontrados!');
+        return;
     }
-
-    // Salvar a preferência do usuário
-    function saveCookieConsent() {
-        try {
-            // Tentar usar localStorage
-            localStorage.setItem('cookiesAccepted', 'true');
-        } catch (e) {
-            // Fallback para cookies (válido por 1 ano)
-            const expirationDate = new Date();
-            expirationDate.setFullYear(expirationDate.getFullYear() + 1);
-            document.cookie = `cookiesAccepted=true; expires=${expirationDate.toUTCString()}; path=/; SameSite=Lax`;
-        }
+    
+    // Se já tiver consentimento, esconder o overlay
+    if (cookieConsent === 'accepted') {
+        cookieOverlay.style.display = 'none';
+        console.log('Consentimento de cookies já aceito');
+    } else {
+        cookieOverlay.style.display = 'flex';
+        console.log('Mostrando banner de consentimento de cookies');
     }
-
-    // Mostrar o pop-up de consentimento
-    function showCookieConsent() {
-        const overlay = document.getElementById('cookie-consent-overlay');
-        if (overlay) {
-            // Aguardar um pequeno tempo para que a animação seja perceptível
-            setTimeout(() => {
-                overlay.classList.add('show');
-            }, 500);
-        }
+    
+    // Função para aceitar cookies
+    function acceptCookies() {
+        localStorage.setItem('cookieConsent', 'accepted');
+        
+        // Animação de fechamento
+        cookieOverlay.style.opacity = '0';
+        cookieOverlay.style.transform = 'translateY(100%)';
+        
+        setTimeout(function() {
+            cookieOverlay.style.display = 'none';
+        }, 500);
+        
+        console.log('Cookies aceitos pelo usuário');
     }
-
-    // Esconder o pop-up de consentimento
-    function hideCookieConsent() {
-        const overlay = document.getElementById('cookie-consent-overlay');
-        if (overlay) {
-            overlay.classList.remove('show');
-        }
-    }
-
-    // Configurar os event listeners
-    function setupEventListeners() {
-        const acceptAllBtn = document.getElementById('cookie-accept-all');
-        const overlay = document.getElementById('cookie-consent-overlay');
-
-        if (acceptAllBtn) {
-            acceptAllBtn.addEventListener('click', function(e) {
-                // Evitar propagação do clique para outros elementos
-                e.stopPropagation();
-                saveCookieConsent();
-                hideCookieConsent();
-            });
-        }
-
-        // Evitar que cliques no cookie-consent-container se propaguem para o documento
-        if (overlay) {
-            const container = overlay.querySelector('.cookie-consent-container');
-            if (container) {
-                container.addEventListener('click', function(e) {
-                    // Impedir propagação para não interferir com outros elementos
-                    e.stopPropagation();
-                });
-            }
-        }
-    }
-
-    // Inicializar o sistema de consentimento de cookies
-    function initCookieConsent() {
-        // Verificar se o conteúdo da página já foi carregado
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            // Se o usuário ainda não aceitou os cookies, mostrar o pop-up
-            if (!checkCookieConsent()) {
-                setupEventListeners();
-                showCookieConsent();
-            }
-        } else {
-            // Se o documento ainda não foi carregado totalmente, aguardar o evento load
-            window.addEventListener('load', function() {
-                if (!checkCookieConsent()) {
-                    setupEventListeners();
-                    showCookieConsent();
-                }
-            });
-        }
-    }
-
-    // Iniciar o sistema com um pequeno atraso para garantir que outros scripts já foram carregados
-    setTimeout(initCookieConsent, 100);
+    
+    // Adicionar eventos aos botões
+    acceptButton.addEventListener('click', acceptCookies);
+    
+    // Adicionar estilos para animação ao overlay
+    cookieOverlay.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    
+    console.log('Script de consentimento de cookies inicializado com sucesso');
 }); 

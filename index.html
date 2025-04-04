@@ -64,7 +64,7 @@
                 <li><a href="index.html#contato">Contato</a></li>
                 <li><a href="https://voonyx.sgp.net.br/accounts/central/login" target="_blank" class="central-assinante">Central do Assinante</a></li>
             </ul>
-            <div class="menu-toggle">
+            <div class="menu-toggle" id="mobile-menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
@@ -623,6 +623,7 @@
                            pattern="[A-Za-zÀ-ÿ\s]{3,50}"
                            maxlength="50"
                            title="Por favor, insira um nome válido (3-50 caracteres, apenas letras)"
+                           placeholder=" "
                     >
                     <label for="nome">Nome</label>
                 </div>
@@ -631,6 +632,7 @@
                            pattern="[0-9]{10,11}"
                            maxlength="11"
                            title="Por favor, insira um número de telefone válido (apenas dígitos)"
+                           placeholder=" "
                     >
                     <label for="telefone">Telefone</label>
                 </div>
@@ -648,6 +650,7 @@
                 <div class="form-group">
                     <textarea id="mensagem" name="mensagem" required
                               maxlength="500"
+                              placeholder=" "
                     ></textarea>
                     <label for="mensagem">Mensagem</label>
                 </div>
