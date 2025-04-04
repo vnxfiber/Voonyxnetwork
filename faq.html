@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
     <header>
@@ -170,5 +171,30 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="mobile-menu.js"></script>
+    
+    <!-- Pop-up de Consentimento de Cookies -->
+    <div id="cookie-consent-overlay" class="cookie-consent-overlay">
+        <div class="cookie-consent-container">
+            <div class="cookie-icon">
+                <i class="fas fa-cookie-bite"></i>
+            </div>
+            <div class="cookie-content">
+                <div class="cookie-title">
+                    <span class="icon"><i class="fas fa-cookie"></i></span>
+                    <h3>Nós utilizamos cookies</h3>
+                </div>
+                <div class="cookie-text">
+                    <p>Este site utiliza cookies e tecnologias semelhantes para melhorar sua experiência de navegação, personalizar conteúdo e anúncios, fornecer recursos de mídia social e analisar o tráfego do site. Ao clicar em "Aceitar todos", você concorda com o uso de cookies. Você pode ler mais sobre como usamos cookies em nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
+                </div>
+                <div class="cookie-buttons">
+                    <button id="cookie-accept-all" class="cookie-btn cookie-btn-primary">Aceitar todos</button>
+                    <button id="cookie-settings" class="cookie-btn cookie-btn-secondary">Configurações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="cookie-consent.js"></script>
 </body>
 </html> 
