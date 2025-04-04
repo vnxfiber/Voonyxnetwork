@@ -46,20 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar os event listeners
     function setupEventListeners() {
         const acceptAllBtn = document.getElementById('cookie-accept-all');
-        const settingsBtn = document.getElementById('cookie-settings');
 
         if (acceptAllBtn) {
             acceptAllBtn.addEventListener('click', function() {
                 saveCookieConsent();
                 hideCookieConsent();
-            });
-        }
-
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', function() {
-                // Neste exemplo, vamos apenas redirecionar para a página de privacidade
-                // Em uma implementação real, você poderia mostrar um pop-up de configurações
-                window.location.href = 'privacidade.html';
             });
         }
     }

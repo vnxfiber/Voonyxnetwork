@@ -97,6 +97,7 @@
 
 .cookie-buttons {
     display: flex;
+    justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
 }
@@ -115,8 +116,7 @@
 .cookie-btn-primary {
     background: linear-gradient(135deg, #00A3FF, #0056b3);
     color: white;
-    flex: 1;
-    min-width: 180px;
+    min-width: 200px;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
 }
 
