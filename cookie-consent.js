@@ -46,12 +46,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar os event listeners
     function setupEventListeners() {
         const acceptAllBtn = document.getElementById('cookie-accept-all');
+        const overlay = document.getElementById('cookie-consent-overlay');
 
         if (acceptAllBtn) {
-            acceptAllBtn.addEventListener('click', function() {
+            acceptAllBtn.addEventListener('click', function(e) {
+                // Evitar propagação do clique para outros elementos
+                e.stopPropagation();
                 saveCookieConsent();
                 hideCookieConsent();
             });
+        }
+
+        // Evitar que cliques no cookie-consent-container se propaguem para o documento
+        if (overlay) {
+            const container = overlay.querySelector('.cookie-consent-container');
+            if (container) {
+                container.addEventListener('click', function(e) {
+                    // Impedir propagação para não interferir com outros elementos
+                    e.stopPropagation();
+                });
+            }
         }
     }
 
@@ -75,6 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Iniciar o sistema
-    initCookieConsent();
+    // Iniciar o sistema com um pequeno atraso para garantir que outros scripts já foram carregados
+    setTimeout(initCookieConsent, 100);
 }); 
