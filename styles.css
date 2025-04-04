@@ -1739,6 +1739,19 @@ nav {
     cursor: pointer;
 }
 
+.select-group select option {
+    background-color: #003f80;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.select-group select:focus {
+    border-color: white;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
 .form-group input:-webkit-autofill,
 .form-group input:-webkit-autofill:hover,
 .form-group input:-webkit-autofill:focus {
