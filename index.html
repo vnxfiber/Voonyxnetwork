@@ -6,10 +6,11 @@
     <title>VNX Fiber - Conectando Você ao Futuro da Internet</title>
     
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
     <meta name="theme-color" content="#0056b3">
     
     <!-- SEO Meta Tags -->
@@ -708,67 +709,7 @@
         </div>
     </footer>
 
-    <!-- Cookie Consent Popup -->
-    <div id="cookie-consent" class="cookie-consent">
-        <div class="cookie-content">
-            <div class="cookie-text">
-                <h3>Nós utilizamos cookies</h3>
-                <p>Este site utiliza cookies para melhorar sua experiência de navegação. Ao continuar navegando em nosso site, você concorda com nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
-            </div>
-            <button id="accept-cookies" class="accept-cookies">Aceitar</button>
-        </div>
-    </div>
-
     <script src="script.js"></script>
-    <!-- Script inline para garantir funcionamento do popup de cookies -->
-    <script>
-        // Verificação de segurança para exibir o popup de cookies
-        (function() {
-            // Executar após o carregamento da página
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    // Verificar se o popup já foi mostrado pelo script principal
-                    var cookieConsent = document.getElementById('cookie-consent');
-                    if (cookieConsent && !cookieConsent.classList.contains('show')) {
-                        // Verificar localStorage com tratamento de erro
-                        var cookiesAccepted = false;
-                        try {
-                            cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
-                        } catch(e) {
-                            // Verificar cookie como fallback
-                            cookiesAccepted = document.cookie.indexOf('cookiesAccepted=true') !== -1;
-                        }
-                        
-                        // Mostrar popup se cookies não foram aceitos
-                        if (!cookiesAccepted) {
-                            cookieConsent.classList.add('show');
-                            console.log('Popup de cookies forçado a aparecer pelo script inline');
-                        }
-                    }
-                }, 2000); // Aguardar 2 segundos após o carregamento da página
-            });
-            
-            // Adicionar listener ao botão se ainda não foi adicionado
-            var acceptButton = document.getElementById('accept-cookies');
-            if (acceptButton && !acceptButton._hasClickListener) {
-                acceptButton.addEventListener('click', function() {
-                    var cookieConsent = document.getElementById('cookie-consent');
-                    if (cookieConsent) {
-                        cookieConsent.classList.remove('show');
-                    }
-                    
-                    // Salvar preferência com tratamento de erro
-                    try {
-                        localStorage.setItem('cookiesAccepted', 'true');
-                    } catch(e) {
-                        // Usar cookie como fallback
-                        document.cookie = "cookiesAccepted=true; max-age=31536000; path=/";
-                    }
-                });
-                acceptButton._hasClickListener = true;
-            }
-        })();
-    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Selecionar a logo

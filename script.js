@@ -220,37 +220,34 @@ document.querySelectorAll('.suporte-card').forEach(element => {
 });
 
 // Formulário de Contato via WhatsApp
-const contatoForm = document.querySelector('.contato-form');
-if (contatoForm) {
-    contatoForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const nome = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const telefone = this.querySelector('input[type="tel"]').value;
-        const assunto = this.querySelector('select').value;
-        const mensagem = this.querySelector('textarea').value;
-        
-        // Formatar a mensagem para o WhatsApp
-        const mensagemWhatsApp = `Olá! Me chamo ${nome}.\n\n` +
-            `*Assunto:* ${assunto}\n` +
-            `*Email:* ${email}\n` +
-            `*Telefone:* ${telefone}\n\n` +
-            `*Mensagem:*\n${mensagem}`;
-        
-        // Codificar a mensagem para URL
-        const mensagemCodificada = encodeURIComponent(mensagemWhatsApp);
-        
-        // Redirecionar para o WhatsApp
-        window.open(`https://wa.me/5598999882215?text=${mensagemCodificada}`, '_blank');
-        
-        // Limpar o formulário
-        this.reset();
-        
-        // Mostrar mensagem de sucesso
-        alert('Você será redirecionado para o WhatsApp!');
-    });
-}
+document.querySelector('.contato-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nome = this.querySelector('input[type="text"]').value;
+    const email = this.querySelector('input[type="email"]').value;
+    const telefone = this.querySelector('input[type="tel"]').value;
+    const assunto = this.querySelector('select').value;
+    const mensagem = this.querySelector('textarea').value;
+    
+    // Formatar a mensagem para o WhatsApp
+    const mensagemWhatsApp = `Olá! Me chamo ${nome}.\n\n` +
+        `*Assunto:* ${assunto}\n` +
+        `*Email:* ${email}\n` +
+        `*Telefone:* ${telefone}\n\n` +
+        `*Mensagem:*\n${mensagem}`;
+    
+    // Codificar a mensagem para URL
+    const mensagemCodificada = encodeURIComponent(mensagemWhatsApp);
+    
+    // Redirecionar para o WhatsApp
+    window.open(`https://wa.me/5598999882215?text=${mensagemCodificada}`, '_blank');
+    
+    // Limpar o formulário
+    this.reset();
+    
+    // Mostrar mensagem de sucesso
+    alert('Você será redirecionado para o WhatsApp!');
+});
 
 // Carrossel de Planos
 document.addEventListener('DOMContentLoaded', function() {
@@ -258,12 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.plano-card');
     const prevButton = document.querySelector('.carousel-button.prev');
     const nextButton = document.querySelector('.carousel-button.next');
-    
-    // Verificar se os elementos existem antes de prosseguir
-    if (!track || !cards.length) {
-        console.log('Elementos do carrossel não encontrados na página atual');
-        return; // Encerra a função se os elementos não existirem
-    }
     
     let currentIndex = 0;
     const cardWidth = cards[0].offsetWidth + 20; // Largura do card + gap
@@ -282,14 +273,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCarousel();
     }
     
-    // Event listeners para os botões (com verificação de existência)
-    if (nextButton) {
-        nextButton.addEventListener('click', nextSlide);
-    }
-    
-    if (prevButton) {
-        prevButton.addEventListener('click', prevSlide);
-    }
+    // Event listeners para os botões
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
     
     // Touch events para mobile
     let startX;
@@ -338,11 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Efeito de Partículas no Hero
 function createParticles() {
     const hero = document.querySelector('.hero');
-    if (!hero) {
-        console.log('Elemento hero não encontrado');
-        return;
-    }
-    
     const particlesContainer = document.createElement('div');
     particlesContainer.className = 'hero-particles';
     hero.appendChild(particlesContainer);
@@ -383,70 +364,56 @@ function formatPhone(phone) {
 }
 
 // Proteção XSS nos inputs
-document.addEventListener('DOMContentLoaded', function() {
-    const inputs = document.querySelectorAll('input, textarea');
-    if (inputs.length) {
-        inputs.forEach(input => {
-            input.addEventListener('input', (e) => {
-                e.target.value = sanitizeInput(e.target.value);
-            });
-        });
+document.querySelectorAll('input, textarea').forEach(input => {
+    input.addEventListener('input', (e) => {
+        e.target.value = sanitizeInput(e.target.value);
+    });
+});
+
+// Formatação automática do telefone
+document.getElementById('telefone')?.addEventListener('input', (e) => {
+    e.target.value = formatPhone(e.target.value);
+});
+
+// Proteção do formulário
+document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Validação adicional
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('telefone').value;
+    
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        alert('Por favor, insira um email válido');
+        return;
     }
     
-    // Formatação automática do telefone
-    const telefoneInput = document.getElementById('telefone');
-    if (telefoneInput) {
-        telefoneInput.addEventListener('input', (e) => {
-            e.target.value = formatPhone(e.target.value);
-        });
+    if (!phone.match(/^\([0-9]{2}\)\s[0-9]{4,5}-[0-9]{4}$/)) {
+        alert('Por favor, insira um telefone válido');
+        return;
     }
     
-    // Proteção do formulário
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Validação adicional
-            const email = document.getElementById('email')?.value || '';
-            const phone = document.getElementById('telefone')?.value || '';
-            
-            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                alert('Por favor, insira um email válido');
-                return;
-            }
-            
-            if (!phone.match(/^\([0-9]{2}\)\s[0-9]{4,5}-[0-9]{4}$/)) {
-                alert('Por favor, insira um telefone válido');
-                return;
-            }
-            
-            // Dados do formulário
-            const formData = new FormData(e.target);
-            const csrfToken = document.getElementById('csrf_token')?.value;
-            if (csrfToken) {
-                formData.append('csrf_token', csrfToken);
-            }
-            
-            try {
-                const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-Token': csrfToken || '',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(Object.fromEntries(formData))
-                });
-                
-                if (!response.ok) throw new Error('Erro no envio');
-                
-                alert('Mensagem enviada com sucesso!');
-                e.target.reset();
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao enviar mensagem. Tente novamente.');
-            }
+    // Dados do formulário
+    const formData = new FormData(e.target);
+    formData.append('csrf_token', document.getElementById('csrf_token').value);
+    
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-Token': document.getElementById('csrf_token').value,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
         });
+        
+        if (!response.ok) throw new Error('Erro no envio');
+        
+        alert('Mensagem enviada com sucesso!');
+        e.target.reset();
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao enviar mensagem. Tente novamente.');
     }
 });
 
@@ -473,11 +440,8 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 // Inicialização de segurança
 document.addEventListener('DOMContentLoaded', () => {
-    // Gerar e definir CSRF token (com verificação de existência)
-    const csrfTokenElement = document.getElementById('csrf_token');
-    if (csrfTokenElement) {
-        csrfTokenElement.value = generateCSRFToken();
-    }
+    // Gerar e definir CSRF token
+    document.getElementById('csrf_token').value = generateCSRFToken();
     
     // Desabilitar devtools (básico)
     document.addEventListener('contextmenu', e => e.preventDefault());
@@ -492,12 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.querySelector('.planos-track');
     const cards = document.querySelectorAll('.plano-card');
-    
-    // Verificar se os elementos existem
-    if (!track || !cards.length) {
-        console.log('Elementos do carrossel mobile não encontrados na página atual');
-        return;
-    }
     
     // Criar indicadores
     if (window.innerWidth <= 768) {
@@ -548,11 +506,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcularBtn = document.getElementById('calcular-btn');
     const resultContainer = document.querySelector('.result-container');
     
-    // Verificar se os elementos necessários existem
-    if (!cards.length || !calcularBtn || !resultContainer) {
-        console.log('Elementos da calculadora não encontrados na página atual');
-        return;
-    }
+    // Verificações básicas
+    if (!cards.length) console.error('Cards não encontrados');
+    if (!calcularBtn) console.error('Botão não encontrado');
+    if (!resultContainer) console.error('Container de resultado não encontrado');
     
     // Objeto para armazenar respostas selecionadas
     const respostas = {};
@@ -703,6 +660,22 @@ document.addEventListener('DOMContentLoaded', function() {
             <span></span>
         `;
     }
+
+    // Adicionar ícones aos links do menu se não existirem
+    const menuIcons = {
+        'Home': 'fas fa-home',
+        'Planos': 'fas fa-wifi',
+        'Sobre': 'fas fa-info-circle',
+        'Contato': 'fas fa-envelope',
+        'Central do Assinante': 'fas fa-user'
+    };
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        const text = link.textContent.trim();
+        if (!link.querySelector('i') && menuIcons[text]) {
+            link.innerHTML = `<i class="${menuIcons[text]}"></i>${text}`;
+        }
+    });
 
     // Função para gerenciar o scroll
     function handleScroll(action) {
@@ -1018,78 +991,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Também ajustar ao redimensionar a janela
     window.addEventListener('resize', ajustarAlturaLogo);
-});
-
-// Cookie Consent Popup - Implementação mais robusta
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializando variáveis
-    const cookieConsent = document.getElementById('cookie-consent');
-    const acceptCookies = document.getElementById('accept-cookies');
-    
-    if (!cookieConsent || !acceptCookies) {
-        console.error('Elementos do cookie consent não encontrados');
-        return; // Encerra a função se os elementos não forem encontrados
-    }
-    
-    // Verifica o localStorage - com fallback seguro
-    let cookiesAccepted = false;
-    try {
-        cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
-    } catch (e) {
-        console.warn('Erro ao acessar localStorage:', e);
-        // Continua sem acessar localStorage
-    }
-
-    // Log para debug
-    console.log('Cookie consent inicializado, cookiesAccepted:', cookiesAccepted);
-    
-    // Função para exibir o popup
-    function showCookieConsent() {
-        console.log('Mostrando cookie consent');
-        setTimeout(() => {
-            cookieConsent.classList.add('show');
-            console.log('Classe "show" adicionada');
-        }, 1000);
-    }
-
-    // Função para esconder o popup e salvar no localStorage
-    function hideCookieConsent() {
-        console.log('Escondendo cookie consent');
-        cookieConsent.classList.remove('show');
-        
-        try {
-            localStorage.setItem('cookiesAccepted', 'true');
-            console.log('Preferência de cookie salva no localStorage');
-        } catch (e) {
-            console.warn('Erro ao salvar no localStorage:', e);
-            // Usa cookie como fallback para localStorage
-            document.cookie = "cookiesAccepted=true; max-age=31536000; path=/";
-        }
-    }
-
-    // Verifica se o usuário já aceitou os cookies antes
-    if (!cookiesAccepted) {
-        showCookieConsent();
-    } else {
-        console.log('Cookies já foram aceitos anteriormente');
-    }
-
-    // Adiciona event listener para o botão de aceitar
-    acceptCookies.addEventListener('click', function() {
-        console.log('Botão aceitar clicado');
-        hideCookieConsent();
-    });
-
-    // Inicialização manual no console (para testes)
-    window.resetCookieConsent = function() {
-        try {
-            localStorage.removeItem('cookiesAccepted');
-        } catch (e) {
-            console.warn('Erro ao remover do localStorage:', e);
-            // Remove cookie como fallback
-            document.cookie = "cookiesAccepted=; max-age=0; path=/";
-        }
-        showCookieConsent();
-        console.log('Cookie consent resetado! O popup deve aparecer em 1 segundo.');
-    };
 }); 

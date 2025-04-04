@@ -76,55 +76,11 @@ vnx-fiber/
 └── README.md       # Documentação
 ```
 
-## Desenvolvimento Local e Erros 403
+## Como Executar
 
-### Problema com Erros 403
-
-Ao abrir o site diretamente pelo sistema de arquivos (protocolo `file://`), você pode encontrar erros 403 (Forbidden) relacionados a favicons e outros recursos. Isso ocorre devido a restrições de segurança em navegadores modernos.
-
-### Solução 1: Usando um Servidor Local (Recomendado)
-
-A melhor maneira de trabalhar em desenvolvimento é usando um servidor web local:
-
-#### Com Python:
-```bash
-# Python 3
-python -m http.server
-
-# Python 2
-python -m SimpleHTTPServer
-```
-Então acesse: http://localhost:8000
-
-#### Com Node.js:
-```bash
-# Instalar (uma única vez)
-npm install -g http-server
-
-# Executar
-http-server
-```
-Então acesse: http://localhost:8080
-
-#### Com VS Code:
-Instale a extensão "Live Server" e clique em "Go Live" na barra de status.
-
-### Solução 2: Configuração Simplificada para Arquivo Local
-
-Para desenvolvimento rápido, o site está configurado com um favicon básico (`favicon.ico`) no diretório raiz. Isso reduz os erros, mas o ideal é usar um servidor local para desenvolvimento completo.
-
-### Na Publicação em Servidor Web
-
-Quando for fazer deploy do site em um servidor web real, você pode restaurar os favicons completos no HTML:
-
-```html
-<!-- Favicons completos para servidor web -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-<link rel="shortcut icon" type="image/x-icon" href="assets/favicon/favicon.ico">
-<link rel="manifest" href="assets/favicon/site.webmanifest">
-```
+1. Clone este repositório
+2. Abra o arquivo `index.html` em seu navegador
+3. Para desenvolvimento, recomenda-se um servidor local
 
 ## Personalização
 
