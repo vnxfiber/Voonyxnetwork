@@ -64,20 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const telefone = document.getElementById('telefone');
     if (telefone) {
         telefone.addEventListener('input', function(e) {
+            // Remover todos os caracteres não numéricos
             let value = e.target.value.replace(/\D/g, '');
             
-            if (value.length > 10) {
-                // Formato (XX) XXXXX-XXXX para celular
-                e.target.value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
-            } else if (value.length > 6) {
-                // Formato (XX) XXXX-XXXX para fixo
-                e.target.value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
-            } else if (value.length > 2) {
-                // Apenas DDD
-                e.target.value = value.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
-            } else {
-                e.target.value = value;
+            // Limitar a 11 dígitos (DDD + 9 dígitos para celular)
+            if (value.length > 11) {
+                value = value.slice(0, 11);
             }
+            
+            // Manter apenas os dígitos, sem formatação
+            e.target.value = value;
         });
     }
     

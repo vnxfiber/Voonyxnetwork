@@ -687,16 +687,15 @@ nav {
 }
 
 @media (max-width: 1024px) {
-    .planos-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        justify-content: center;
+    /* Ajustes para tablet */
+    body {
+        font-size: 15px;
     }
     
-    .beneficios-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
-        justify-content: center;
+    .planos-grid, .beneficios-grid, .depoimentos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+        margin: 0 auto;
     }
     
     .depoimentos-grid {
@@ -710,77 +709,7 @@ nav {
         margin-top: 0;
     }
     
-    nav {
-        padding: 0.5rem 1rem;
-    }
-    
-    .central-assinante {
-        font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Ajustes gerais para mobile */
-    body {
-        font-size: 14px;
-    }
-    
-    section {
-        padding: 3rem 1rem;
-    }
-    
-    h2 {
-        font-size: 2rem;
-    }
-    
-    /* Planos na versão mobile */
-    .planos-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    
-    .plano-card {
-        margin-bottom: 1.5rem;
-    }
-    
-    /* Beneficios na versão mobile */
-    .beneficios-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    
-    .beneficio-card {
-        margin-bottom: 1.5rem;
-    }
-    
-    /* Calculadora na versão mobile */
-    .calculadora-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .options-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    /* Ajustes para o formulário de contato */
-    .contato-container {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Ajustes para o footer */
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-links {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    /* Layout básico do menu */
+    /* Menu tablet igual ao mobile */
     header {
         height: 70px;
         padding: 3px 0;
@@ -898,6 +827,7 @@ nav {
         z-index: 1000;
     }
     
+    /* Estilo para os itens do menu */
     .nav-links li {
         opacity: 0;
         transform: translateX(-20px);
@@ -1014,6 +944,77 @@ nav {
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
         background: linear-gradient(135deg, #0095e8, #0062cc);
+    }
+    
+    /* Botão Central Assinante para tablet/mobile no header */
+    .central-assinante {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajustes gerais para mobile */
+    body {
+        font-size: 14px;
+    }
+    
+    section {
+        padding: 3rem 1rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    /* Planos na versão mobile */
+    .planos-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .plano-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Beneficios na versão mobile */
+    .beneficios-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .beneficio-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Calculadora na versão mobile */
+    .calculadora-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Ajustes para o formulário de contato */
+    .contato-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Ajustes para o footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     /* Ajustar outros elementos para mobile */
