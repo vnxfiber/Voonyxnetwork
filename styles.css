@@ -120,10 +120,7 @@ nav {
     letter-spacing: 2px;
     text-transform: uppercase;
     position: relative;
-    background: linear-gradient(135deg, #00A3FF, #0056b3);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #000000; /* Cor preta para o texto */
     opacity: 0.9;
     align-self: flex-end;
     white-space: nowrap;
@@ -131,6 +128,20 @@ nav {
     margin-bottom: 5px;
     line-height: 1;
     transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    /* Logo na versão tablet */
+    .logo .subtitle {
+        font-size: 0.65rem;
+        align-self: center;
+        margin-bottom: 6px;
+        padding-bottom: 2px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        color: #000000; /* Garantindo que o texto fique preto também no tablet/mobile */
+    }
 }
 
 .logo:active .subtitle {
@@ -761,6 +772,7 @@ nav {
         display: block;
         width: 100%;
         text-align: center;
+        color: #000000; /* Garantindo que o texto fique preto também no mobile */
     }
     
     /* Botão toggle do menu */
