@@ -157,5 +157,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Reposicionar o botão Central do Assinante após o item Contato no menu mobile
+    const navLinks = document.querySelector('.nav-links');
+    const menuItems = navLinks.querySelectorAll('li');
+    
+    if (menuItems.length >= 5) {
+        const contatoItem = menuItems[3]; // Item Contato (4º item, índice 3)
+        const centralItem = menuItems[4]; // Item Central do Assinante (5º item, índice 4)
+        
+        // Garantir que o item Central do Assinante venha logo após o Contato
+        if (contatoItem && centralItem) {
+            contatoItem.after(centralItem);
+            
+            // Adicionar uma classe específica para melhor controle no CSS
+            centralItem.classList.add('central-item');
+            
+            // Verificar se o menu está aberto e ajustar a visibilidade do botão
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    // Dar um tempo para a animação do menu completar
+                    setTimeout(() => {
+                        // Garantir que o item da central esteja visível
+                        if (navLinks.classList.contains('active')) {
+                            centralItem.style.opacity = '1';
+                            centralItem.style.transform = 'translateX(0)';
+                        }
+                    }, 300);
+                });
+            }
+        }
+    }
+    
+    // Garantir que o botão Central do Assinante esteja centralizado no menu mobile
+    function adjustCentralButton() {
+        const centralItem = document.querySelector('.nav-links li:nth-child(5)');
+        if (centralItem) {
+            centralItem.style.display = 'flex';
+            centralItem.style.justifyContent = 'center';
+            centralItem.style.width = '100%';
+            
+            const centralBtn = centralItem.querySelector('.central-assinante');
+            if (centralBtn) {
+                centralBtn.style.margin = '0 auto';
+                centralBtn.style.textAlign = 'center';
+            }
+        }
+    }
+    
+    // Chamar função ao abrir menu
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            setTimeout(adjustCentralButton, 100);
+        });
+    }
+    
+    // Chamar também na carga inicial
+    document.addEventListener('DOMContentLoaded', function() {
+        adjustCentralButton();
+    });
+    
     console.log('Script principal carregado com sucesso');
 }); 
