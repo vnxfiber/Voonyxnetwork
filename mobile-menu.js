@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const menuItems = navLinks.querySelectorAll('li');
             menuItems.forEach((item, index) => {
                 item.style.transitionDelay = (0.1 * index) + 's';
+                // Garantir que os itens fiquem visíveis
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 100);
             });
         } else {
             body.style.overflow = '';
@@ -41,6 +46,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar evento de clique ao botão do menu
     menuToggle.addEventListener('click', toggleMenu);
     
+    // Ajustar botão Central do Assinante no menu mobile
+    function adjustCentralButton() {
+        const centralItem = document.querySelector('.nav-links li:nth-child(5)');
+        if (centralItem && window.innerWidth <= 768) {
+            centralItem.style.display = 'flex';
+            centralItem.style.justifyContent = 'center';
+            centralItem.style.width = '100%';
+            
+            const centralBtn = centralItem.querySelector('.central-assinante');
+            if (centralBtn) {
+                centralBtn.style.margin = '0.8rem auto';
+                centralBtn.style.textAlign = 'center';
+                centralBtn.style.display = 'flex';
+                centralBtn.style.justifyContent = 'center';
+            }
+        }
+    }
+    
+    // Chamar a função inicial e em cada redimensionamento
+    adjustCentralButton();
+    window.addEventListener('resize', adjustCentralButton);
+    
     // Fechar o menu quando um link é clicado
     const links = navLinks.querySelectorAll('a');
     links.forEach(link => {
@@ -49,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const href = this.getAttribute('href');
             
             // Sempre fechar o menu quando qualquer link for clicado na versão mobile
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 console.log('Link clicado no mobile, fechando menu');
                 toggleMenu();
                 
@@ -73,36 +100,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, 300);
                     }
                 }
-            } else if (href.startsWith('#')) {
-                // Para desktop, apenas fechar se for link interno
-                console.log('Link interno clicado no desktop');
-                // Não implementar rolagem suave aqui, deixar para o smooth-scroll.js
             }
         });
     });
     
-    // Não implementar rolagem suave aqui, deixar para o smooth-scroll.js
-    
-    // Fechar o menu ao clicar fora dele (exceto no popup de cookies)
+    // Fechar o menu ao clicar fora dele
     document.addEventListener('click', function(e) {
         // Verificar se o menu está aberto
         if (!navLinks.classList.contains('active')) return;
         
         // Se o clique não foi no menu nem no botão de toggle
         if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-            // Verificar se o clique foi no popup de cookies
-            const cookieContainer = document.querySelector('.cookie-consent-container');
-            const cookieButton = document.getElementById('cookie-accept-all');
-            const cookieOverlay = document.getElementById('cookie-consent-overlay');
-            
-            // Não fechar o menu se o clique foi no popup de cookies
-            if ((cookieContainer && cookieContainer.contains(e.target)) || 
-                (cookieButton && cookieButton.contains(e.target)) ||
-                (cookieOverlay && cookieOverlay.contains(e.target))) {
-                console.log('Clique no popup de cookies, não fechando menu');
-                return;
-            }
-            
             toggleMenu();
             console.log('Clique fora do menu, fechando menu');
         }

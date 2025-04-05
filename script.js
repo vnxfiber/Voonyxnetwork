@@ -189,94 +189,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Garantir que o botão Central do Assinante esteja centralizado no menu mobile
+    // Garantir que o botão Central do Assinante esteja centralizado e visível no menu mobile
     function adjustCentralButton() {
         const centralItem = document.querySelector('.nav-links li:nth-child(5)');
-        if (centralItem) {
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (centralItem && navLinks) {
+            // Configurar os estilos para garantir visibilidade
             centralItem.style.display = 'flex';
             centralItem.style.justifyContent = 'center';
             centralItem.style.width = '100%';
+            centralItem.style.margin = '0.3rem auto';
             
+            // Tornar o item imediatamente visível (sem animação)
+            centralItem.style.opacity = '1';
+            centralItem.style.transform = 'translateX(0)';
+            
+            // Aplicar estilos ao botão
             const centralBtn = centralItem.querySelector('.central-assinante');
             if (centralBtn) {
                 centralBtn.style.margin = '0 auto';
                 centralBtn.style.textAlign = 'center';
+                centralBtn.style.fontSize = '0.85rem';
+                centralBtn.style.padding = '0.5rem 1rem';
             }
+            
+            // Reduzir espaçamento dos outros itens se necessário
+            const menuItems = navLinks.querySelectorAll('li');
+            menuItems.forEach((item, index) => {
+                if (index < 4) { // Excluir o item do botão Central
+                    item.style.margin = '0.1rem 0';
+                }
+            });
         }
     }
     
-    // Chamar função ao abrir menu
+    // Chamar a função na carga da página e quando o menu for aberto
+    adjustCentralButton();
+    window.addEventListener('resize', adjustCentralButton);
+    
     const menuToggle = document.getElementById('mobile-menu-toggle');
     if (menuToggle) {
         menuToggle.addEventListener('click', function() {
             setTimeout(adjustCentralButton, 100);
         });
     }
-    
-    // Chamar também na carga inicial
-    document.addEventListener('DOMContentLoaded', function() {
-        adjustCentralButton();
-    });
-    
-    // Ajustar menu mobile para preencher toda a altura disponível
-    function adjustMobileMenu() {
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (navLinks) {
-            // Calcular a altura disponível para o menu
-            const viewportHeight = window.innerHeight;
-            navLinks.style.height = `${viewportHeight}px`;
-            
-            // Obter todos os itens do menu
-            const menuItems = navLinks.querySelectorAll('li');
-            
-            if (menuItems.length > 0) {
-                // Calcular o espaçamento ideal entre itens
-                const totalItems = menuItems.length;
-                
-                // Aplicar espaçamento vertical para distribuir os itens de maneira uniforme
-                // Isso garante que o menu utilize todo o espaço disponível
-                menuItems.forEach((item, index) => {
-                    // Ajustar posição do item no menu
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateX(0)';
-                    
-                    // Aplicar margens reduzidas para tornar o menu mais compacto
-                    if (viewportHeight < 600) {
-                        // Para telas pequenas, ainda mais compacto
-                        item.style.margin = '0';
-                    } else {
-                        item.style.margin = '0.05rem 0';
-                    }
-                });
-                
-                // Garantir que o botão Central do Assinante esteja visível e centralizado
-                const centralItem = navLinks.querySelector('li:nth-child(5)');
-                if (centralItem) {
-                    centralItem.style.display = 'flex';
-                    centralItem.style.justifyContent = 'center';
-                    centralItem.style.width = '100%';
-                }
-            }
-        }
-    }
-    
-    // Chamar função quando o menu for aberto
-    const menuToggleMobile = document.getElementById('mobile-menu-toggle');
-    if (menuToggleMobile) {
-        menuToggleMobile.addEventListener('click', function() {
-            setTimeout(adjustMobileMenu, 300); // Aplicar após a animação de abertura
-        });
-    }
-    
-    // Ajustar quando a janela for redimensionada ou a orientação for alterada
-    window.addEventListener('resize', adjustMobileMenu);
-    window.addEventListener('orientationchange', adjustMobileMenu);
-    
-    // Chamar no carregamento da página
-    document.addEventListener('DOMContentLoaded', function() {
-        adjustMobileMenu();
-    });
     
     console.log('Script principal carregado com sucesso');
 }); 
